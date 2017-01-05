@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<title>Create your cv</title>
 <body>
+  <h1>Welcome to flask!</h1>
+  <br>
+  <p>Click <a href="/logout">here</a> to logout.</p>
+
+  <h3>Posts:</h3>
+  {% for post in posts %}
+    <strong>Title:</strong> {{ post.title }} <br>
+    <strong>Post:</strong> {{ post.description }} <br>
+  <br>
+  {% endfor %}  
   <div class="header">
     <div class="content">
     <form action="">
