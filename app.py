@@ -11,7 +11,7 @@ app.secret_key = "rings"
 app.database = "sample.db"
 
 
-#login required decorator
+# login required decorator
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -24,7 +24,7 @@ def login_required(f):
 
 
 # use decorators to link the function to a url
-@app.route('/')
+@app.route('/resume')
 @login_required
 def home():
     # return "Hello World!" # return a string
@@ -35,14 +35,17 @@ def home():
     for row in cur.fetchall():
         posts.append(dict(title=row[0], description=row[1]))
 
-    #posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]
-    #print(posts)
+    # posts = [dict(title=row[0], description=row[1])
+    #   for row in cur.fetchall()]
+    # print(posts)
     g.db.close()
-    return render_template('index.html', posts=posts) # render a template
+    return render_template('resume.html', posts=posts)  # render a template
 
-@app.route('/resume')
-def resume():
-    return render_template("resume.html") # render a template
+
+# @app.route('/resume')
+# def resume():
+#     return render_template("resume.html")  # render a template
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,6 +58,7 @@ def login():
             flash('You were just logged in!')
             return redirect(url_for('resume'))
     return render_template('login.html', error=error)
+
 
 @app.route('/logout')
 @login_required
